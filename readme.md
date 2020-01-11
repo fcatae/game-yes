@@ -18,4 +18,29 @@ Ref: https://ionicframework.com/docs/react/your-first-app
     ionic serve
 
 
+Development
+=============
+
+1. Create a new page
+
+    /src/pages/Start.tsx
+
+2. Create a new route in `App.tsx` 
+
+```xml
+<IonApp>
+    <IonReactRouter>
+        <IonRouterOutlet>
+            <Route path="/home" component={Home} exact={true} />
+            <Route path="/start" component={Start} exact={true} />        
+        </IonRouterOutlet>
+    </IonReactRouter>
+</IonApp>
+```
+
+3. Navigate the pages using `IonButton` and `routerLink`
+
+```xml
+    <IonButton color="primary" expand="block" routerLink="/Home">
+```
 
