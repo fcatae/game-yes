@@ -3,10 +3,16 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton,
   useIonViewWillEnter
 } from '@ionic/react';
 import React, { useState } from 'react';
+import { RouteComponentProps } from "react-router-dom";
 import GameServices from '../services/GameServices'
 
-const Game: React.FC = () => {
+interface GameProps {
+  gameName: string
+}
 
+const Game: React.FC<RouteComponentProps<GameProps>> = ({match}) => {
+
+  const gameName = match.params.gameName;
   const [imageSource, setImageSource] = useState('');
   const [text, setText] = useState('');
   const [gameId, setGameId] = useState('');
@@ -38,7 +44,7 @@ const Game: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>{gameId}</IonTitle>
+          <IonTitle>{gameName}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
