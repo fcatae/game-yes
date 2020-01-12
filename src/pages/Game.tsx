@@ -1,8 +1,14 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, 
-  IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonBackdrop } from '@ionic/react';
+  IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonCardTitle, IonBackdrop,
+  useIonViewWillEnter
+} from '@ionic/react';
 import React from 'react';
 
 const Game: React.FC = () => {
+
+  useIonViewWillEnter(() => {
+    alert('start')
+  });
 
   const [imageSource] = ['https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/%281%29_Querim_beach_Goa_India_2013.jpg/1200px-%281%29_Querim_beach_Goa_India_2013.jpg']
   const [text] = ['title']

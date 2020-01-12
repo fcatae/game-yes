@@ -5,11 +5,7 @@ const Start: React.FC = () => {
   return (
     <IonPage>      
       <IonContent className="ion-padding">
-        <IonButton color="primary" expand="block" routerLink="/Game"
-        onClick={ (e)=>{
-            alert('start game')
-            //e.preventDefault()
-        }}>Start Game</IonButton>
+        <IonButton color="primary" expand="block" routerLink="/Game">Start Game</IonButton>
       </IonContent>
     </IonPage>
   );
