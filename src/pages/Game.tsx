@@ -6,6 +6,8 @@ import React, { useState } from 'react';
 import { RouteComponentProps } from "react-router-dom";
 import GameServices from '../services/GameServices'
 
+import './Game.css'
+
 interface GameProps {
   gameName: string
 }
@@ -16,6 +18,7 @@ const Game: React.FC<RouteComponentProps<GameProps>> = ({match}) => {
   const [imageSource, setImageSource] = useState('');
   const [text, setText] = useState('');
   const [gameId, setGameId] = useState('');
+  const [vote, setVote] = useState(-1);
 
   useIonViewWillEnter(async () => {
     // setup
@@ -31,13 +34,25 @@ const Game: React.FC<RouteComponentProps<GameProps>> = ({match}) => {
 
     setImageSource(gameStep.image)
     setText(gameStep.text);
+    setVote(-1);
   }
 
   const voteQuestion = async (vote: number) => {
+    setVote(vote);
+
     await GameServices.voteGameStep(vote);
 
     // move next
     await moveNextGame();
+  }
+
+  const imageReady = (elem: React.ReactElement) => (imageSource != '') ? elem : null;
+  const imageDone  = (voteNumber: number) => {
+    switch(voteNumber) {
+      case 0: return 'app-game-step-no';
+      case 1: return 'app-game-step-yes'
+    }
+    return '';
   }
 
   return (
@@ -49,7 +64,7 @@ const Game: React.FC<RouteComponentProps<GameProps>> = ({match}) => {
       </IonHeader>
       <IonContent className="ion-padding">
 
-        <IonCard>
+        <IonCard className={imageDone(vote)}>
         <IonCardHeader>
           <IonCardTitle>{text}</IonCardTitle>
         </IonCardHeader>
@@ -58,13 +73,12 @@ const Game: React.FC<RouteComponentProps<GameProps>> = ({match}) => {
           <div><img src={imageSource}></img></div>
         </IonCardContent>
       </IonCard>
-          {(imageSource != '') ? 
-            <div>
+          {
+          imageReady(<div>
               <IonButton color="danger"  onClick={() => voteQuestion(0)}>NO</IonButton>
               <IonButton color="primary" onClick={() => voteQuestion(1)}>YES</IonButton>
-            </div>            
-            : null }
-      
+            </div>
+          )}      
       </IonContent>
     </IonPage>
   );

@@ -51,8 +51,10 @@ class GameServices {
     }
     
     voteGameStep(vote: number): Promise<void> {
-        alert(vote == 0 ? 'false' : 'YES')
-        return Promise.resolve();
+
+        let wait100 = new Promise<void>( (r) => setTimeout(r, 100) )
+
+        return wait100;
     }
     
     close() {
