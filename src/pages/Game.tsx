@@ -11,51 +11,54 @@ const Game: React.FC = () => {
   const [text, setText] = useState('');
   const [gameId, setGameId] = useState('');
 
-  useIonViewWillEnter(() => {
+  useIonViewWillEnter(async () => {
     // setup
-    let id = GameServices.start();
+    let id = await GameServices.start();
     setGameId(id);
 
     // start
-    moveNextGame();
+    await moveNextGame();
   });
 
-  const moveNextGame = () => {
-    const gameStep = GameServices.getGameStep();
+  const moveNextGame = async () => {
+    const gameStep = await GameServices.getGameStep();
 
     setImageSource(gameStep.image)
     setText(gameStep.text);
   }
 
-  const voteQuestion = (vote: number) => {
-    GameServices.voteGameStep(vote);
+  const voteQuestion = async (vote: number) => {
+    await GameServices.voteGameStep(vote);
 
     // move next
-    moveNextGame();
+    await moveNextGame();
   }
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Game</IonTitle>
+          <IonTitle>{gameId}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
 
         <IonCard>
         <IonCardHeader>
-          <IonCardTitle>{gameId}</IonCardTitle>
+          <IonCardTitle>{text}</IonCardTitle>
         </IonCardHeader>
 
         <IonCardContent>
-          <img src={imageSource}></img>
+          <div><img src={imageSource}></img></div>
         </IonCardContent>
       </IonCard>
+          {(imageSource != '') ? 
+            <div>
+              <IonButton color="danger"  onClick={() => voteQuestion(0)}>NO</IonButton>
+              <IonButton color="primary" onClick={() => voteQuestion(1)}>YES</IonButton>
+            </div>            
+            : null }
       
-        <IonButton color="danger"  onClick={() => voteQuestion(0)}>NO</IonButton>
-        <IonButton color="primary" onClick={() => voteQuestion(1)}>YES</IonButton>
-
       </IonContent>
     </IonPage>
   );

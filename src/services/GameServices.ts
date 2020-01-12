@@ -24,20 +24,35 @@ class GameServices {
         gameBaseUrl = baseUrl
     }
     
-    start(): string {
+    start(): Promise<string> {
         this.gameId = "01";
         this.counter = 0;
         this.total = steps.length;
+        
+        return Promise.resolve(this.gameId);
+    }
 
-        return this.gameId;
+    async startAsync(): Promise<string> {
+        const body = `{
+            "label": "easy"
+          }`;
+                
+        const response = await fetch('/game', {
+            method: 'POST', body: body
+        })
+
+        Promise.resolve('yes');
+
+        return "";
     }
     
-    getGameStep(): GameStep {
-        return steps[(this.counter++) % this.total];
+    getGameStep(): Promise<GameStep> {
+        return Promise.resolve(steps[(this.counter++) % this.total]);
     }
     
-    voteGameStep(vote: number) {
+    voteGameStep(vote: number): Promise<void> {
         alert(vote == 0 ? 'false' : 'YES')
+        return Promise.resolve();
     }
     
     close() {
