@@ -7,17 +7,31 @@ import GameServices from '../services/GameServices'
 
 const Game: React.FC = () => {
 
+  const [imageSource, setImageSource] = useState('');
+  const [text, setText] = useState('');
+  const [gameId, setGameId] = useState('');
+
   useIonViewWillEnter(() => {
+    // setup
     let id = GameServices.start();
     setGameId(id);
+
+    // start
+    moveNextGame();
   });
 
-  const [imageSource, setImageSource] = useState('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/%281%29_Querim_beach_Goa_India_2013.jpg/1200px-%281%29_Querim_beach_Goa_India_2013.jpg');
-  const [text, setText] = useState('title');
-  const [gameId, setGameId] = useState('game0');
+  const moveNextGame = () => {
+    const gameStep = GameServices.getGameStep();
+
+    setImageSource(gameStep.image)
+    setText(gameStep.text);
+  }
 
   const voteQuestion = (vote: number) => {
-    alert(vote == 0 ? 'false' : 'YES')
+    GameServices.voteGameStep(vote);
+
+    // move next
+    moveNextGame();
   }
 
   return (
