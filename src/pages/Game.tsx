@@ -6,8 +6,6 @@ import React, { useState } from 'react';
 import { RouteComponentProps } from "react-router-dom";
 import GameServices from '../services/GameServices'
 
-import './Game.css'
-
 interface GameProps {
   gameName: string
 }
@@ -49,10 +47,11 @@ const Game: React.FC<RouteComponentProps<GameProps>> = ({match}) => {
   const imageReady = (elem: React.ReactElement) => (imageSource != '') ? elem : null;
   const imageDone  = (voteNumber: number) => {
     switch(voteNumber) {
-      case 0: return 'app-game-step-no';
-      case 1: return 'app-game-step-yes'
+      case 0: return { backgroundColor: 'lightpink'};
+      case 1: return { backgroundColor: 'lightgreen'}
+      //case 1: return 'app-game-step-yes'
     }
-    return '';
+    return {};
   }
 
   return (
@@ -64,7 +63,7 @@ const Game: React.FC<RouteComponentProps<GameProps>> = ({match}) => {
       </IonHeader>
       <IonContent className="ion-padding">
 
-        <IonCard className={imageDone(vote)}>
+        <IonCard style={imageDone(vote)}>
         <IonCardHeader>
           <IonCardTitle>{text}</IonCardTitle>
         </IonCardHeader>
