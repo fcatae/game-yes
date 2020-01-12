@@ -1,26 +1,32 @@
-var gameBaseUrl: string = '';
+var gameBaseUrl: string = ''
 
-function init(baseUrl: string) {
-    gameBaseUrl = baseUrl
+class GameServices {
+
+    gameId = '';
+
+    init(baseUrl: string) {
+        gameBaseUrl = baseUrl
+    }
+    
+    start(): string {
+        this.gameId = "01";
+        
+        return this.gameId;
+    }
+    
+    getNextGameStep() {
+    
+    }
+    
+    voteGameStep() {
+    
+    }
+    
+    close() {
+    
+    }
 }
 
-function start() {
-    alert('start game at ' + gameBaseUrl)
-}
+const singletonGame = new GameServices();
 
-function getNextGameStep() {
-
-}
-
-function voteGameStep() {
-
-}
-
-function close() {
-
-}
-
-export default {
-    init: init,
-    start: start
-}
+export default singletonGame;

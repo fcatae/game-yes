@@ -44,3 +44,17 @@ Development
     <IonButton color="primary" expand="block" routerLink="/Home">
 ```
 
+4. Using page event `useIonViewWillEnter`
+
+Ref: https://ionicframework.com/docs/react/lifecycle
+
+
+5. Use state
+
+```
+    import React, { useState } from 'react';
+
+    const [gameId, setGameId] = useState('game0')
+```
+
+Ref: https://ionicframework.com/blog/a-state-management-pattern-for-ionic-react-with-react-hooks/

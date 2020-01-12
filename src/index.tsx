@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import GameServices from './services/GameServices';
-
+import GameServices from './services/GameServices'
 import * as serviceWorker from './serviceWorker';
 
-GameServices.init('http://localhost:8081');
+GameServices.init('http://localhost:8081')
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
